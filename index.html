@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Zero to Hero - Master Python Programming</title>
+    <meta name="description"
+        content="Learn Python from scratch with hands-on projects, expert instructors, and a supportive community. Start your coding journey today!">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6e3ae9",
+                        "python-yellow": "#FFD43B",
+                        "python-blue": "#4B8BBE",
+                        "success-green": "#50FA7B",
+                        "accent-pink": "#FF79C6",
+                        "background-dark": "#161121",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "code": ["Source Code Pro", "monospace"]
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out infinite 1s',
+                        'float-delayed-2': 'float 7s ease-in-out infinite 0.5s',
+                        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': {
+                                'text-shadow': '0 0 5px rgba(255, 212, 59, 0.4)',
+                                color: '#FFD43B'
+                            },
+                            '50%': {
+                                'text-shadow': '0 0 20px rgba(255, 212, 59, 0.8)',
+                                color: '#fff'
+                            },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        .glass-card {
+            background: rgba(45, 45, 60, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0 30px rgba(110, 58, 233, 0.4);
+            border-color: rgba(110, 58, 233, 0.6);
+        }
+
+        .icon-glow {
+            filter: drop-shadow(0 0 15px rgba(110, 58, 233, 0.5));
+        }
+
+        .lesson-item:hover {
+            background-color: rgba(111, 58, 233, 0.2);
+        }
+
+        .code-block {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+        }
+
+        .code-block:hover {
+            transform: perspective(1500px) rotateX(0deg) !important;
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 5px #34d399, 0 0 10px #34d399, 0 0 15px #34d399;
+        }
+
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD43B 0%, #FF79C6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6e3ae9, #FFD43B);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-white antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-y-0 right-0 z-50 w-full sm:w-80 bg-background-dark/95 backdrop-blur-lg transform translate-x-full">
+        <div class="flex flex-col h-full p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-xl font-bold">Menu</h3>
+                <button id="close-menu-btn" class="text-white/80 hover:text-white">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-6">
+                <a href="#curriculum" class="text-lg text-white/80 hover:text-white transition-colors">Curriculum</a>
+                <a href="#highlights" class="text-lg text-white/80 hover:text-white transition-colors">Highlights</a>
+                <a href="#instructor" class="text-lg text-white/80 hover:text-white transition-colors">Instructor</a>
+                <a href="#testimonials" class="text-lg text-white/80 hover:text-white transition-colors">Success
+                    Stories</a>
+                <a href="#" class="text-lg text-white/80 hover:text-white transition-colors">Community</a>
+                <a href="#" class="text-lg text-white/80 hover:text-white transition-colors">Pricing</a>
+            </nav>
+            <div class="mt-auto flex flex-col gap-3">
+                <button
+                    class="items-center w-full h-12 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold transition-colors">
+                    Log In
+                </button>
+                <button
+                    class="items-center w-full h-12 rounded-lg bg-python-yellow text-background-dark font-bold shadow-lg hover:scale-105 transition-transform">
+                    Sign Up Free
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-background-dark/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 text-primary">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z"
+                                fill="currentColor" />
+                            <path clip-rule="evenodd"
+                                d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764Z"
+                                fill="currentColor" fill-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold">Python Zero to Hero</h2>
+                </div>
+
+                <nav class="hidden lg:flex items-center gap-8">
+                    <a href="#curriculum"
+                        class="text-sm text-white/80 hover:text-white transition-colors">Curriculum</a>
+                    <a href="#highlights"
+                        class="text-sm text-white/80 hover:text-white transition-colors">Highlights</a>
+                    <a href="#instructor"
+                        class="text-sm text-white/80 hover:text-white transition-colors">Instructor</a>
+                    <a href="#testimonials" class="text-sm text-white/80 hover:text-white transition-colors">Success
+                        Stories</a>
+                    <a href="#" class="text-sm text-white/80 hover:text-white transition-colors">Community</a>
+                </nav>
+
+                <div class="flex items-center gap-3">
+                    <button
+                        class="items-center hidden sm:flex h-10 px-4 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-bold transition-colors">
+                        Log In
+                    </button>
+                    <button
+                        class="items-center hidden sm:flex h-10 px-4 rounded-lg bg-python-yellow text-background-dark text-sm font-bold shadow-lg hover:scale-105 transition-transform">
+                        Start Free Trial
+                    </button>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-white/10">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] via-[#7c3aed] to-background-dark"></div>
+        <div class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-python-blue/20 rounded-full blur-3xl animate-pulse">
+        </div>
+
+        <!-- Floating Code Snippets -->
+        <div class="absolute top-1/4 left-10 w-48 h-24 bg-black/20 rounded-lg p-3 backdrop-blur-sm border border-white/10 shadow-lg animate-float code-block hidden lg:block"
+            style="transform: rotateX(10deg) rotateY(-15deg);">
+            <div class="flex items-center gap-1.5 mb-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <pre class="font-code text-xs"><code class="text-purple-400">def</code> <code class="text-blue-400">hello_world</code>():
+  <code class="text-purple-400">print</code>(<code class="text-green-400">"Hello!"</code>)</pre>
+        </div>
+
+        <div class="absolute top-1/2 right-12 w-52 h-20 bg-black/20 rounded-lg p-3 backdrop-blur-sm border border-white/10 shadow-lg animate-float-delayed code-block hidden lg:block"
+            style="transform: rotateX(-5deg) rotateY(10deg);">
+            <div class="flex items-center gap-1.5 mb-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <pre class="font-code text-xs"><code class="text-blue-400">name</code> = <code class="text-green-400">"Hero"</code>
+<code class="text-purple-400">print</code>(f<code class="text-green-400">"Welcome!"</code>)</pre>
+        </div>
+
+        <div class="absolute bottom-1/4 left-[15%] w-40 bg-black/20 rounded-lg p-3 backdrop-blur-sm border border-white/10 shadow-lg animate-float-delayed-2 code-block hidden lg:block"
+            style="transform: rotateX(5deg) rotateY(5deg);">
+            <div class="flex items-center gap-1.5 mb-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <pre
+                class="font-code text-xs"><code class="text-purple-400">import</code> <code class="text-blue-400">success</code></pre>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col gap-6 text-center lg:text-left items-center lg:items-start"
+                    data-aos="fade-right">
+                    <p class="font-code text-success-green text-sm neon-glow">import success</p>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
+                        Python:
+                    </h1>
+                    <p class="text-white/80 text-lg md:text-xl max-w-md">
+                        Master Python through hands-on projects and become a confident developer in just 12 weeks.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
+                        <button
+                            class="w-full sm:w-auto flex items-center justify-center h-12 px-6 rounded-lg bg-success-green text-black text-base font-bold neon-glow hover:scale-105 transition-transform">
+                            <span>Start My Free Trial</span>
+                        </button>
+                        <button
+                            class="w-full sm:w-auto flex items-center justify-center h-12 px-6 rounded-lg bg-transparent border-2 border-white/50 text-white text-base font-bold hover:bg-white/10 transition-colors">
+                            <span>View Curriculum</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-4 mt-4">
+                        <div class="flex -space-x-2">
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-background-dark">
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 border-2 border-background-dark">
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 border-2 border-background-dark">
+                            </div>
+                        </div>
+                        <p class="text-sm text-white/60">Join 10,000+ students</p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-center" data-aos="fade-left">
+                    <div class="absolute inset-0 bg-primary/30 rounded-full blur-3xl"></div>
+                    <img class="relative z-10 w-full max-w-md lg:max-w-lg animate-float" src="./img.png"
+                        alt="Python mascot with graduation cap">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="relative py-16 bg-background-dark">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex items-center gap-4 p-6 glass-card rounded-lg" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex-shrink-0 bg-success-green/20 text-success-green p-3 rounded-lg">
+                        <span class="material-symbols-outlined text-3xl">school</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-lg">Learn Fundamentals</h3>
+                        <p class="text-white/70 text-sm">Start from scratch with core concepts</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 p-6 glass-card rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex-shrink-0 bg-python-yellow/20 text-python-yellow p-3 rounded-lg">
+                        <span class="material-symbols-outlined text-3xl">developer_mode_tv</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-lg">Real Projects</h3>
+                        <p class="text-white/70 text-sm">Build impressive portfolio</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 p-6 glass-card rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex-shrink-0 bg-accent-pink/20 text-accent-pink p-3 rounded-lg">
+                        <span class="material-symbols-outlined text-3xl">groups</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-lg">Join Community</h3>
+                        <p class="text-white/70 text-sm">Collaborate with peers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Editor Demo Section -->
+    <section class="relative py-20 bg-gradient-to-b from-background-dark to-[#0f051e]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Learn Python <span
+                        class="gradient-text">Interactively</span></h2>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Run code directly in your browser and get instant
+                    feedback. No setup required.</p>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto" data-aos="zoom-in">
+                <!-- Floating Icons -->
+                <div
+                    class="absolute -top-8 -left-12 text-primary/30 text-4xl opacity-50 hidden lg:block animate-bounce-slow">
+                    { }</div>
+                <div
+                    class="absolute top-1/2 -right-16 text-success-green/30 text-3xl opacity-50 hidden lg:block animate-bounce-slow">
+                    x=y</div>
+
+                <!-- Browser Window -->
+                <div class="relative bg-[#2D2D2D] rounded-xl shadow-2xl code-block"
+                    style="transform: perspective(1500px) rotateX(15deg);">
+                    <!-- Browser Header -->
+                    <div class="bg-gray-800/50 rounded-t-xl px-4 py-3 flex items-center gap-2 border-b border-white/10">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <div class="flex-grow flex items-center justify-center ml-[-48px]">
+                            <div
+                                class="bg-[#1E1E1E] rounded-md px-4 py-1 text-xs text-gray-400 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm text-gray-500">lock</span>
+                                python-zero-to-hero.dev
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="bg-[#1E1E1E] px-2 flex items-end">
+                        <div
+                            class="bg-[#252526] text-white px-4 py-2 rounded-t-lg text-sm flex items-center gap-2 border-primary border-b-2">
+                            <span class="text-blue-400 text-lg">🐍</span> main.py
+                        </div>
+                        <div class="text-gray-400 px-4 py-2 text-sm hover:text-white cursor-pointer">Chapter 3: Loops
+                        </div>
+                    </div>
+
+                    <!-- Code Editor -->
+                    <div class="relative bg-[#1E1E1E] p-6 font-code text-sm leading-relaxed">
+                        <div class="flex">
+                            <div class="text-right text-gray-500 pr-4 select-none">
+                                1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+                            </div>
+                            <pre class="text-gray-300"><code><span class="text-purple-400">def</span> <span class="text-yellow-300">greet</span>(<span class="text-blue-400">name</span>):
+    <span class="text-green-400">"""A simple function to greet the user."""</span>
+    message = <span class="text-green-400">f"Hello, </span><span class="text-orange-400">{</span>name<span class="text-orange-400">}</span><span class="text-green-400">! Welcome."</span>
+    <span class="text-purple-400">print</span>(message)
+
+<span class="text-gray-500"># Call the function</span>
+<span class="text-yellow-300">greet</span>(<span class="text-green-400">"Hero"</span>)
+</code></pre>
+                        </div>
+
+                        <!-- Terminal Output -->
+                        <div class="mt-6 pt-4 border-t border-white/10">
+                            <p class="text-success-green">▶ Success! ✅</p>
+                            <p class="text-white/80 mt-1">Hello, Hero! Welcome.</p>
+                            <p class="text-gray-500 text-xs mt-2">Process finished with exit code 0</p>
+                        </div>
+
+                        <!-- Mascot -->
+                        <div class="absolute -bottom-8 -right-8 w-32 h-32 hidden md:block">
+                            <img class="w-full h-full object-contain animate-float"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD347Jiks4IBxAqqkBlkPU4xj0XGODaBpW0VCptFO2adRocTwbxG58_Q-hEMwkn4im2lVgv2xYvSP8RZWVF9bFDKYuy3gMJjuP8JYQOGInprNLhgFM26fKVUFJMQDAwBcpi9Ic3F8TxI3POQ7YbWIZAmj3Ju9GhguxiNymEjsTsKj1aOb57kMbMXUN-ci0m-V1YeSrss0vFwsH8ACwBXqnFllVFHbKeXLBwOCYM0jBKEIsMZG3p6zuh8hWCoZCl7-hRE0XYMA040hs"
+                                alt="Python mascot">
+                        </div>
+                    </div>
+
+                    <!-- Run Button -->
+                    <div class="absolute top-24 right-4">
+                        <button
+                            class="flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-primary text-white font-bold shadow-lg hover:bg-primary/80 transition-all hover:scale-110">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                            <span>Run Code</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Highlights Section -->
+    <section id="highlights" class="relative py-24 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute top-0 left-0 h-full w-full overflow-hidden z-0">
+            <div class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-primary/20 rounded-full blur-3xl animate-pulse">
+            </div>
+            <div class="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-python-blue/20 rounded-full blur-3xl animate-pulse">
+            </div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Course Highlights by the <span
+                        class="gradient-text">Numbers</span></h2>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Join a thriving community and gain
+                    industry-recognized skills through our comprehensive curriculum.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1: Students -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden" data-aos="flip-left"
+                    data-aos-delay="0">
+                    <div class="absolute -top-10 -right-10 text-4xl opacity-5">🎉</div>
+                    <div class="h-24 w-24 flex items-center justify-center mx-auto animate-float">
+                        <span class="material-symbols-outlined !text-7xl text-python-blue icon-glow">groups</span>
+                    </div>
+                    <p class="text-4xl font-bold text-python-yellow mt-4">10,000+</p>
+                    <p class="text-white/80 text-base font-medium mt-2">Students Enrolled</p>
+                </div>
+
+                <!-- Card 2: Duration -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden" data-aos="flip-left"
+                    data-aos-delay="100">
+                    <div class="h-24 w-24 flex items-center justify-center mx-auto animate-float-delayed">
+                        <span class="material-symbols-outlined !text-7xl text-accent-pink icon-glow">schedule</span>
+                    </div>
+                    <p class="text-4xl font-bold text-white mt-4">12 <span class="text-2xl text-white/70">Weeks</span>
+                    </p>
+                    <p class="text-2xl font-bold text-white/90">60 <span class="text-lg text-white/70">Hours</span></p>
+                    <p class="text-white/80 text-base font-medium mt-2">Comprehensive Curriculum</p>
+                    <div class="w-full bg-white/10 rounded-full h-1.5 mt-4">
+                        <div class="bg-gradient-to-r from-accent-pink to-primary h-1.5 rounded-full" style="width: 75%">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Projects -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden" data-aos="flip-left"
+                    data-aos-delay="200">
+                    <span
+                        class="absolute top-12 left-4 text-python-blue opacity-20 text-4xl font-mono select-none">&lt;/&gt;</span>
+                    <span
+                        class="absolute bottom-12 right-4 text-accent-pink opacity-20 text-4xl font-mono select-none">{
+                        }</span>
+                    <div class="h-24 w-24 flex items-center justify-center mx-auto animate-float-delayed-2">
+                        <span class="material-symbols-outlined !text-7xl text-python-blue icon-glow">laptop_mac</span>
+                    </div>
+                    <p class="text-4xl font-bold animate-pulse-glow mt-4">15+</p>
+                    <p class="text-white/80 text-base font-medium mt-2">Real-World Projects</p>
+                </div>
+
+                <!-- Card 4: Certificate -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden" data-aos="flip-left"
+                    data-aos-delay="300">
+                    <div
+                        class="absolute top-4 right-4 h-16 w-16 bg-yellow-400/80 rounded-full flex items-center justify-center opacity-80">
+                        <span class="material-symbols-outlined text-yellow-800 !text-4xl">star</span>
+                    </div>
+                    <div class="h-24 w-24 flex items-center justify-center mx-auto animate-float">
+                        <span
+                            class="material-symbols-outlined !text-7xl text-python-yellow icon-glow">workspace_premium</span>
+                    </div>
+                    <p class="text-2xl font-bold text-white mt-4">Industry-Recognized</p>
+                    <p class="text-white/80 text-base font-medium mt-2">Certificate of Completion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Curriculum Section -->
+    <section id="curriculum" class="relative py-24 bg-gradient-to-b from-[#0f051e] to-background-dark">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Course <span class="gradient-text">Curriculum</span>
+                </h2>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Follow the path from Zero to Hero. Expand each module
+                    to see the lessons.</p>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <!-- Module 1 - Python Basics -->
+                <details class="glass-card rounded-xl overflow-hidden group" open data-aos="fade-up" data-aos-delay="0">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAft_iyNwVeY9o9dRW20E9LIkJkP-ObLAcHGy82_qDwzQN593ZNG2JNQuIDNzOu1JUB_l82h_nVpu0-GeaPa7foeh__TcQ-UrLRf_zd3wnwTmuEzrX_9VpEtbKjQCTdUHu5JCyaBPEEe4TqOznw5YXLOMYczWKRBPE_DrhuZfGmZum2c8FgSGohbYzlHpfQ0nL8ZuLMOU4FgVzxhhYDqMHc2xTsoHQnQjzMHENZqYDZBub8cdvJIlbXrckoYV9BMQ2uSfU61e5WiF0"
+                                alt="Python Basics">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white text-lg font-bold">01. Python Basics</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-[#8BE9FD]/20 text-[#8BE9FD] text-xs font-bold px-3 py-1 rounded-full">2h
+                                            30m</span>
+                                        <span
+                                            class="material-symbols-outlined text-success-green text-2xl">task_alt</span>
+                                        <span
+                                            class="material-symbols-outlined text-white group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-success-green" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6">
+                        <div class="border-t border-white/10 mt-2 mb-4"></div>
+                        <ul class="flex flex-col gap-2 pl-2">
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Introduction to Python</span>
+                                </div>
+                                <span class="text-white/60 text-sm">15m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Setting Up Your Environment</span>
+                                </div>
+                                <span class="text-white/60 text-sm">30m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Your First "Hello World" Program</span>
+                                </div>
+                                <span class="text-white/60 text-sm">15m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Variables and Data Types</span>
+                                </div>
+                                <span class="text-white/60 text-sm">25m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Basic Operators</span>
+                                </div>
+                                <span class="text-white/60 text-sm">20m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">User Input and Output</span>
+                                </div>
+                                <span class="text-white/60 text-sm">25m</span>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- Module 2 - Variables & Data Types -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="50">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBndM00-6ZMJliou_YljUvbLUU_0YIW71uQLoAVxxff2Mm4bOBTzfJ0eqFxZehSCR4YkqUEEcKqeykxdpZb9lc61X2_gSz4TQID3ly6e6T-PT6pm5jh4Q4TR_j0SAJb-h---kBjDUw_iNI161dwc_Oiwd32u95qQcmJjDSB8A4zoPId7ms3Ay5MDIYkbw_jKmD1-EgGqFwcB8bzjTyivuLR0DI1u0VCJ9BMBNyLcgZHZbWVumxR4G1B0kYFxC2Xj8KP1U0ybSsgu4"
+                                alt="Variables">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white text-lg font-bold">02. Variables & Data Types</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-[#8BE9FD]/20 text-[#8BE9FD] text-xs font-bold px-3 py-1 rounded-full">3h
+                                            15m</span>
+                                        <span
+                                            class="material-symbols-outlined text-[#F1FA8C] text-2xl">progress_activity</span>
+                                        <span
+                                            class="material-symbols-outlined text-white group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-accent-pink" style="width: 45%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">45%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6">
+                        <div class="border-t border-white/10 mt-2 mb-4"></div>
+                        <ul class="flex flex-col gap-2 pl-2">
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">String Operations</span>
+                                </div>
+                                <span class="text-white/60 text-sm">35m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-success-green">check_circle</span>
+                                    <span class="text-white/90">Numbers and Math</span>
+                                </div>
+                                <span class="text-white/60 text-sm">30m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-[#F1FA8C]">radio_button_checked</span>
+                                    <span class="text-white/90">Lists and Tuples</span>
+                                </div>
+                                <span class="text-white/60 text-sm">40m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-white/30">radio_button_unchecked</span>
+                                    <span class="text-white/60">Dictionaries</span>
+                                </div>
+                                <span class="text-white/60 text-sm">45m</span>
+                            </li>
+                            <li
+                                class="lesson-item flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-white/30">radio_button_unchecked</span>
+                                    <span class="text-white/60">Sets and Boolean</span>
+                                </div>
+                                <span class="text-white/60 text-sm">35m</span>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- Module 3 - Control Flow -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg2nohe_VOotQ8BeaWe-qCDPFOO5opzpqDnrUeMC717JtF2_5sqBTDRfjNcFUzdBouw4hiWP-Q_m_fESpnVZzmLuGGW3m5_qI6VozCT12JngGwC-DDtM18nZ_hW1miGLemdIxtI-WiusfsZA4D5E0FYgkP3dGyhPLC7z6fAEkb4qiAutBMJo-liGjj_o7fx8eyJSilGAE3vSFywtdSbqnmhh0LuBVY-8P4NYhSWHwFO3pAPKrJVdt1STH_UHepdp8wOEYO75g8hs4"
+                                alt="Control Flow">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white/60 text-lg font-bold">03. Control Flow</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-white/10 text-white/50 text-xs font-bold px-3 py-1 rounded-full">4h
+                                            00m</span>
+                                        <span class="material-symbols-outlined text-white/50 text-2xl">lock</span>
+                                        <span
+                                            class="material-symbols-outlined text-white/50 group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-primary" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                </details>
+
+                <!-- Module 4 - Functions -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="150">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuABilX8ssHfd-zP6DkcN7etv-WTDcsKULYaI8E2QpfvAvabODbTpQKC30JPewqKKyTfgkpGnzPtHFgdXyqXtnvCLtAGoXzmmbAzq_su5khXkAUgcJj5SurGyKrBKrX6jJS7goJRY-0JsmUbvRf1oBlkicYtIiT_PxEID7BrAmNQ7uzdYXkcDcghjr6-EajRjTn-1HT8yp_lNWYHV8TNTXVZu5AKlR76EJ7-XwQwrQhfJDlgxii691MOsSCkV3lFHZZFkmcfCVPdKXQ"
+                                alt="Functions">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white/60 text-lg font-bold">04. Functions</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-white/10 text-white/50 text-xs font-bold px-3 py-1 rounded-full">3h
+                                            30m</span>
+                                        <span class="material-symbols-outlined text-white/50 text-2xl">lock</span>
+                                        <span
+                                            class="material-symbols-outlined text-white/50 group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-primary" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                </details>
+
+                <!-- Module 5 - OOP -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbic1EmA4mul4g7_cZAkaaqlHQaDldYvhRQNPnOjKzGCJUNSKmo0yHsBRB_oEYpRvru-fmmuHvJaFxcrN_NPSpG_JTH9mzsgEcwiIQ1G_rh0Zh6NhCqyBdNuyHsiSIcuU4w6sIrzr_1yjHRigW7HxJONIuIXZJosa_eLsVKijUmu9SWeIcTNSlyTQn0YYA1LlFIh31dXTC-Q5yvnCsvspzKARjUkYfGVUrs9ePGoVH0w37yl4nEQJ9HgkIDFbgr30ZUV05fk840lo"
+                                alt="OOP">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white/60 text-lg font-bold">05. Object-Oriented Programming</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-white/10 text-white/50 text-xs font-bold px-3 py-1 rounded-full">5h
+                                            00m</span>
+                                        <span class="material-symbols-outlined text-white/50 text-2xl">lock</span>
+                                        <span
+                                            class="material-symbols-outlined text-white/50 group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-primary" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                </details>
+
+                <!-- Module 6 - File Handling -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="250">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwSebm9g3LotwVTBoWWgMskdY35zPhABqh1VXFH2lClpUFxc8uepjZJN9BWbxw758QVWbe5qC6X7KO_tIDu6HSu6WgHx8wroWPRm-Fzp8Z12Y1UqhQzogd04HzWttQKZ2yG4BuD1kQZa9ER62qlGaesdbbZ3Vp6XfAFV7FPyF9z4veWYvz-i-o8yBU8x_xMRPuL4uStcPN5LepIrl0QNPdKHGCXk6UM1HI7Y9ccy3QDMaLcS4QeIWm5x_VKHoZJhhgd2uvBLcFr50"
+                                alt="File Handling">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white/60 text-lg font-bold">06. File Handling</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-white/10 text-white/50 text-xs font-bold px-3 py-1 rounded-full">2h
+                                            15m</span>
+                                        <span class="material-symbols-outlined text-white/50 text-2xl">lock</span>
+                                        <span
+                                            class="material-symbols-outlined text-white/50 group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-primary" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                </details>
+
+                <!-- Module 7 - APIs -->
+                <details class="glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                    <summary class="flex flex-col cursor-pointer p-6 list-none hover:bg-white/5">
+                        <div class="flex items-center gap-4">
+                            <img class="w-14 h-14 rounded-lg object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFz6b5ZEifP4aNmlTf4KU32S-tzqm59LLj4DUTqwJ1qyy8SvqpAnjEGuVwHBsyCYU0NvBtlR4NbjZUuGQ_zjdHsYxTbpkM77pHYygioPGAmeFnEgve6b2_WA8OZoCrUqeqDjBSr4sfFf7r0rA3sl4r6kn_1nKPtjQxRutIWNQVnijPQV9Q1Qno1JPZhE84dJotCIgP-RB5O9Ozg3lS6C9zLJQG19n2mr-BbKAHpltZLLTR1EnBTMI4gYCCz0AYNXMVCwaStMqyxps"
+                                alt="APIs">
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-center flex-wrap gap-4">
+                                    <p class="text-white/60 text-lg font-bold">07. Working with APIs</p>
+                                    <div class="flex items-center gap-4">
+                                        <span
+                                            class="bg-white/10 text-white/50 text-xs font-bold px-3 py-1 rounded-full">3h
+                                            45m</span>
+                                        <span class="material-symbols-outlined text-white/50 text-2xl">lock</span>
+                                        <span
+                                            class="material-symbols-outlined text-white/50 group-open:rotate-180 transition-transform duration-300">expand_more</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <div class="flex-grow rounded-full bg-white/20 h-1.5">
+                                        <div class="h-1.5 rounded-full bg-primary" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="text-white/70 text-xs">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                    </summary>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section id="instructor" class="relative py-24 bg-gradient-to-b from-background-dark to-[#0f051e]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 items-center gap-12">
+                <!-- Content -->
+                <div class="order-2 lg:order-1" data-aos="fade-right">
+                    <div class="flex flex-col gap-6">
+                        <!-- Badge -->
+                        <div
+                            class="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-4 py-2 w-fit">
+                            <span class="relative flex h-3 w-3">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-green opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-success-green"></span>
+                            </span>
+                            <span class="text-sm font-bold text-success-green">Available for Consulting</span>
+                        </div>
+
+                        <div>
+                            <p class="text-sm text-primary font-code mb-2">const instructor = {</p>
+                            <h2 class="text-4xl md:text-5xl font-black mb-3">
+                                Meet Your <span class="gradient-text">Instructor</span>
+                            </h2>
+                            <p class="text-3xl text-white font-bold mb-2">Mahmoud Nazmy</p>
+                            <p class="text-xl text-python-yellow font-code mb-1">
+                                &lt; Full-Stack Developer /&gt;
+                            </p>
+                            <p class="text-white/60 text-lg">Python Expert • Educator • Tech Enthusiast</p>
+                            <p class="text-sm text-primary font-code mt-2">};</p>
+                        </div>
+
+                        <p class="text-white/80 text-lg leading-relaxed">
+                            I'm Mahmoud, a passionate full-stack developer with a deep love for Python and teaching.
+                            Over the past <strong class="text-python-yellow">5+ years</strong>, I've helped thousands of
+                            students transform from complete beginners to confident Python developers through hands-on,
+                            project-based learning.
+                        </p>
+
+                        <!-- Philosophy Quote -->
+                        <div class="glass-card p-5 rounded-xl border-l-4 border-primary">
+                            <p class="text-white/90 italic text-base">
+                                "I believe the best way to learn programming is by building real projects. That's why
+                                every lesson in this course comes with practical, hands-on exercises that you can add to
+                                your portfolio."
+                            </p>
+                            <p class="text-primary font-code text-sm mt-2">- Mahmoud Nazmy</p>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
+                            <div
+                                class="glass-card p-4 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer group">
+                                <div class="text-3xl mb-2">
+                                    <span
+                                        class="material-symbols-outlined text-python-yellow text-4xl group-hover:scale-110 transition-transform">school</span>
+                                </div>
+                                <p class="text-2xl md:text-3xl font-bold text-python-yellow">10K+</p>
+                                <p class="text-xs text-white/60 mt-1">Students Taught</p>
+                            </div>
+                            <div
+                                class="glass-card p-4 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer group">
+                                <div class="text-3xl mb-2">
+                                    <span
+                                        class="material-symbols-outlined text-success-green text-4xl group-hover:scale-110 transition-transform">code</span>
+                                </div>
+                                <p class="text-2xl md:text-3xl font-bold text-success-green">50+</p>
+                                <p class="text-xs text-white/60 mt-1">Projects Built</p>
+                            </div>
+                            <div
+                                class="glass-card p-4 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer group">
+                                <div class="text-3xl mb-2">
+                                    <span
+                                        class="material-symbols-outlined text-accent-pink text-4xl group-hover:scale-110 transition-transform">star</span>
+                                </div>
+                                <p class="text-2xl md:text-3xl font-bold text-accent-pink">4.9</p>
+                                <p class="text-xs text-white/60 mt-1">Average Rating</p>
+                            </div>
+                            <div
+                                class="glass-card p-4 rounded-lg text-center hover:scale-105 transition-transform cursor-pointer group">
+                                <div class="text-3xl mb-2">
+                                    <span
+                                        class="material-symbols-outlined text-python-blue text-4xl group-hover:scale-110 transition-transform">schedule</span>
+                                </div>
+                                <p class="text-2xl md:text-3xl font-bold text-python-blue">5+</p>
+                                <p class="text-xs text-white/60 mt-1">Years Teaching</p>
+                            </div>
+                        </div>
+
+                        <!-- Expertise -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <p class="text-lg font-bold text-white">Technical Expertise</p>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-primary hover:text-primary transition-colors cursor-pointer">
+                                    Python
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-success-green hover:text-success-green transition-colors cursor-pointer">
+                                    Django
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-python-yellow hover:text-python-yellow transition-colors cursor-pointer">
+                                    FastAPI
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-accent-pink hover:text-accent-pink transition-colors cursor-pointer">
+                                    React
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-primary hover:text-primary transition-colors cursor-pointer">
+                                    PostgreSQL
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-success-green hover:text-success-green transition-colors cursor-pointer">
+                                    Docker
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-python-yellow hover:text-python-yellow transition-colors cursor-pointer">
+                                    AWS
+                                </span>
+                                <span
+                                    class="glass-card px-4 py-2 rounded-full text-sm font-code text-white/90 hover:border-accent-pink hover:text-accent-pink transition-colors cursor-pointer">
+                                    Git
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Call to Action -->
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                            <button
+                                class="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-gradient-to-r from-primary to-python-blue text-white font-bold shadow-lg hover:scale-105 transition-transform group">
+                                <span>Start Learning with Me</span>
+                                <span
+                                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </button>
+                            <button
+                                class="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 transition-colors">
+                                <span class="material-symbols-outlined">download</span>
+                                <span>Download Resume</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="order-1 lg:order-2" data-aos="fade-left">
+                    <div class="relative">
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-6 -right-6 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-python-yellow/20 rounded-full blur-2xl">
+                        </div>
+
+                        <!-- Main Image -->
+                        <div
+                            class="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card border-2 border-white/10">
+                            <img class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD11O4av-gUZiOoo-n-b5R1yhQ0OtUbrUKnB3qJfpE71Fuvf8Xhbkqu1zCytCJD0wUtn_kXhI0M1YJBuV36jF6i9PwFNVg4uX7BaLBDHu7w7FdNPb78Zbw_lgDrbvV34Usr5uEKKdBXDwwuQlVtHSTnILfPn8MCqO8LEPzNy4XLpvwh5c8d3pDfmneZTj_tVKV1BMH43Hh0HJ3Z-KpgvEWk7yWzgh4W191L14QMZklcDKXLLP0HLsJgzqC4nuQQqeU2gkfrSTV7aI0"
+                                alt="Mahmoud Nazmy - Python Instructor">
+
+                            <!-- Overlay Badge -->
+                            <div class="absolute bottom-4 left-4 right-4 glass-card p-4 rounded-xl">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-white font-bold text-sm">Teaching Since 2019</p>
+                                        <p class="text-white/60 text-xs">Transforming Beginners into Developers</p>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                                        <span class="text-white font-bold">4.9</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Code Badge -->
+                        <div
+                            class="absolute -top-4 left-8 glass-card px-4 py-2 rounded-lg border border-success-green/50 animate-float">
+                            <p class="font-code text-sm text-success-green">
+                                <span class="text-white/60">print(</span>"Hello World!"<span
+                                    class="text-white/60">)</span>
+                            </p>
+                        </div>
+
+                        <!-- Floating Stats Badge -->
+                        <div
+                            class="absolute -bottom-4 right-8 glass-card px-4 py-3 rounded-lg border border-primary/50 animate-float-delayed">
+                            <div class="flex items-center gap-3">
+                                <div class="text-center">
+                                    <p class="text-2xl font-bold text-primary">10K+</p>
+                                    <p class="text-xs text-white/60">Students</p>
+                                </div>
+                                <div class="w-px h-8 bg-white/20"></div>
+                                <div class="text-center">
+                                    <p class="text-2xl font-bold text-python-yellow">50+</p>
+                                    <p class="text-xs text-white/60">Projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Achievement Section -->
+            <div class="mt-16 pt-12 border-t border-white/10" data-aos="fade-up">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-2">My Teaching Philosophy</h3>
+                    <p class="text-white/60">Why students love learning Python with me</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-primary transition-colors">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl text-primary">psychology</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Learn by Doing</h4>
+                        <p class="text-sm text-white/60">Every concept is reinforced with practical coding exercises and
+                            real-world projects</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-python-yellow transition-colors">
+                        <div
+                            class="w-16 h-16 mx-auto mb-4 rounded-full bg-python-yellow/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl text-python-yellow">groups</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Community Support</h4>
+                        <p class="text-sm text-white/60">Join a thriving community where we learn, code, and grow
+                            together</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-success-green transition-colors">
+                        <div
+                            class="w-16 h-16 mx-auto mb-4 rounded-full bg-success-green/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl text-success-green">rocket_launch</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Career-Focused</h4>
+                        <p class="text-sm text-white/60">Build a portfolio of projects that impress employers and land
+                            you your dream job</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="relative py-24 bg-gradient-to-b from-[#0f051e] to-background-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Real Results, Real <span
+                        class="gradient-text">Careers</span></h2>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Discover how our students have transformed their
+                    careers with Python.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="0">
+                    <span class="absolute top-2 right-2 text-python-yellow"><span
+                            class="material-symbols-outlined text-4xl">celebration</span></span>
+
+                    <div class="relative mb-4 inline-block">
+                        <img class="w-32 h-32 rounded-full object-cover border-4 border-white/20 mx-auto"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtHyhYwt7f7MGrlsW3QXO_2sdj6ddJLrIGz8ANylEs-V9lXeky4KKb1oEUIoUwq4ILvJqNJfyTmE4cSGO1r8gVNUNcHMuzPzzRLQO2b_3IEfXyjYY_FyprpaJK9E-jiYuhX18pXSAE7eNfxLKVYra__1qIbNX8kzkNOL1scBiA2fDp2S7UAkGnPPaSCSTmjK9FXZwi3TRyinbMiqStp8AQ877KWg4uq9xrSdv9kbLk8RSf3imXk197NvscAB8xKXqXysF-JDF4JTY"
+                            alt="Alex Johnson">
+                        <div class="absolute -bottom-2 -right-2 bg-primary p-2 rounded-full">
+                            <span class="material-symbols-outlined text-white text-2xl">work</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-2">Alex Johnson</h3>
+
+                    <div class="flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                    </div>
+
+                    <div class="bg-white/5 p-4 rounded-lg mb-4 relative">
+                        <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/5 transform rotate-45">
+                        </div>
+                        <p class="text-white/80 text-sm italic">"This course was a game-changer. I went from retail to a
+                            real developer role in just six months!"</p>
+                    </div>
+
+                    <div class="flex justify-center items-center gap-3 text-sm mb-4">
+                        <span class="bg-red-900/50 text-red-300 text-xs px-2.5 py-1 rounded-full">Retail</span>
+                        <span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+                        <span class="bg-green-900/50 text-success-green text-xs px-2.5 py-1 rounded-full">Jr. Dev</span>
+                    </div>
+
+                    <div class="flex gap-4 justify-center pt-4 border-t border-white/10">
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <img class="w-5 h-5"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZRgXYVYpKKIXJjgyMi0xJoHmdz4cOvFswBobRQwmJzt0NA9zKzzklDWT6emIydWm9ydHb7-72weB4JOur2az_v5jhRAKPVHEViMFZvyXs2JXCubSrbl6IN6O3H9Q5gqzit1V3VTnnu7IvT3ScliYANeioJSfjZOY3d4xZniZ1D370NtRwBdSkvxI-19mycxVGAJSn-IdtVbsPcSH0b7RjOkt99Mvh1jhPqCNjSAZHiOD6SvB8IMnD4z_MljJ2x_k1vykOetUluHY"
+                                alt="LinkedIn">
+                        </a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <img class="w-5 h-5"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGeRahD8WiTWMmhH2zkQ2HScBOwr7MFDKMv0p1rB1Zm8R5Kf5Gh_QHQs-BFPfEZyJMkCLf_1_4vZA36s2DPJTyrcUnX1c_MftEYsnvUhKb4k97m9Od7CQYwnUVDUKY9S-NPrYAKDGm6GKm4trY6LWxkEaDexaEYF8-gw1BjGplHnMDP5A7ERP_7FK2WGVcf7FbsegQ-QnTpIVjf4bTPkac4r06OBQJMzp_MCB7wPqcc7_R8BhGB2bsgwh5tkSki0xBJhXZXiYoKK4"
+                                alt="GitHub">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <span class="absolute top-2 right-2 text-python-yellow"><span
+                            class="material-symbols-outlined text-4xl">emoji_events</span></span>
+
+                    <div class="relative mb-4 inline-block">
+                        <img class="w-32 h-32 rounded-full object-cover border-4 border-white/20 mx-auto"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ_Bw0bqvji7UWXtHiPSegvAqRcLcdGx764VOf0925Rp4X3ga2iMnmySTAyg1U-_s3XyKqxGSUGTld9QAtRTdnqfU_tDi7kl4LfkzYHZx27l2rHgLSa5GfcSmVFyZnsWwj3HeTQ4eKncgQLiXcz5iavHP2SL_Zdsb6lxIU4LZqWLS1-oXB3tiNvaeg6t1RGAWdxJ-C9N6WgbIAjQjyIK43ewcXMkMoC_VQgeA3g5mItywvzrYYsNLKQnr-cP7sn8XS2O6_TxlhrpQ"
+                            alt="Brenda Chen">
+                        <div class="absolute -bottom-2 -right-2 bg-primary p-2 rounded-full">
+                            <span class="material-symbols-outlined text-white text-2xl">laptop_mac</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-2">Brenda Chen</h3>
+
+                    <div class="flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                    </div>
+
+                    <div class="bg-white/5 p-4 rounded-lg mb-4 relative">
+                        <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/5 transform rotate-45">
+                        </div>
+                        <p class="text-white/80 text-sm italic">"I finally built the portfolio project I've always
+                            dreamed of. The hands-on lessons were incredible."</p>
+                    </div>
+
+                    <div class="flex justify-center items-center gap-3 text-sm mb-4">
+                        <span class="bg-red-900/50 text-red-300 text-xs px-2.5 py-1 rounded-full">Marketing</span>
+                        <span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+                        <span
+                            class="bg-green-900/50 text-success-green text-xs px-2.5 py-1 rounded-full">Full-Stack</span>
+                    </div>
+
+                    <div class="flex gap-4 justify-center pt-4 border-t border-white/10">
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <img class="w-5 h-5"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1P4U7htrjtTEN9q43MFdtn_9aEuanEVbqea78FA2lcv2wtWk9pG4Z4KZQ1i0OilkbbLksMj7oEPW8rj8i3_sPqq8RbFryDsSC7J8XuUAZtxYjOoB57uwGTCb--m5p7ccG9OLvSrAKv0Y5RxAQVCeJKgbME_DZi1-uaBZFs6ANUR8Rbk-D46zAuOGnEg3v7WEzTSdJ60-XANZNJgsZC2uniblYI97nC7ateGTO_fZf90yQrFKWRof4cpeAj15ySBSUa6tLcuz6LsU"
+                                alt="GitHub">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card rounded-xl p-8 text-center relative overflow-hidden group" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <span class="absolute top-2 right-2 text-python-yellow"><span
+                            class="material-symbols-outlined text-4xl">verified</span></span>
+
+                    <div class="relative mb-4 inline-block">
+                        <img class="w-32 h-32 rounded-full object-cover border-4 border-white/20 mx-auto"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXthk6lhxWx_DxCvesrDjnV2WkouA_naOV4G8h4wzmTFG2KqVVjBORxkVJVALvvOtDkFOIzm_JC9t1cRYroGy7eoj_nXmp0s0Gfr0gAhzWeEpB_YcsVespuq5dtvp17aFa4g4kyjnCDFSX9pRwJLXcNpXT65IB7LwnRPYkNCXLVSMk4tKxP-NUH03TbhknNC4imeZkq4pIGmYcKrdbFP8c2gYo-63tkGa--K0O348frLO5CfpIFG-szGXODjYOF-KOLDD0QrW2E_Y"
+                            alt="Carlos Rodriguez">
+                        <div class="absolute -bottom-2 -right-2 bg-primary p-2 rounded-full">
+                            <span class="material-symbols-outlined text-white text-2xl">school</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-2">Carlos Rodriguez</h3>
+
+                    <div class="flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                        <span class="material-symbols-outlined text-python-yellow text-sm">star</span>
+                    </div>
+
+                    <div class="bg-white/5 p-4 rounded-lg mb-4 relative">
+                        <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/5 transform rotate-45">
+                        </div>
+                        <p class="text-white/80 text-sm italic">"The certification gave me the confidence and
+                            credentials to prove my skills to employers."</p>
+                    </div>
+
+                    <div class="flex justify-center items-center gap-3 text-sm mb-4">
+                        <span class="bg-red-900/50 text-red-300 text-xs px-2.5 py-1 rounded-full">Student</span>
+                        <span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+                        <span class="bg-green-900/50 text-success-green text-xs px-2.5 py-1 rounded-full">Certified
+                            Pro</span>
+                    </div>
+
+                    <div class="flex gap-4 justify-center pt-4 border-t border-white/10">
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <img class="w-5 h-5"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGsDcTe6uHX9Vf4jMvN5NYVYacG8AEwURsVwFzN-vQGGm-N6aTQLViWTArMSnkb9tHrEaLqKe4GMMYy4MXteiIltRW8OjfmFnePh2Kff9B8JRoy7UQYfV6KbRQq7IKBdgz40DUnpT96SPt2AsUzEIOCe4MSAVYXSBjPNbAkCVqVSuNiuTE-aUBqgCSqr1-Aaast1wd63xj_VBVuQMazwCfjHZgMKRVUMPSzu2ofknfUw5opAFq_t2psZNowyR-oGXtPOxkrONfaD0"
+                                alt="LinkedIn">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="relative py-24 bg-gradient-to-br from-primary via-[#7c3aed] to-python-blue overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')">
+            </div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">Ready to Start Your Python Journey?</h2>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">Join thousands of students who have already
+                transformed their careers. Start your 14-day free trial today—no credit card required.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                    class="w-full sm:w-auto h-14 px-8 rounded-xl bg-white text-primary text-lg font-bold shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                    <span>Start Free Trial</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+                <button
+                    class="w-full sm:w-auto h-14 px-8 rounded-xl bg-white/20 backdrop-blur-sm text-white text-lg font-bold hover:bg-white/30 transition-colors">
+                    View Pricing
+                </button>
+            </div>
+            <p class="text-white/70 text-sm mt-6">No credit card required • Cancel anytime • 30-day money-back guarantee
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer - Developer Focused -->
+    <footer
+        class="relative bg-gradient-to-b from-background-dark via-[#0a0614] to-black border-t border-white/10 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-python-yellow rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+            <!-- DEVELOPER SPOTLIGHT SECTION -->
+            <div class="mb-16 text-center">
+                <!-- Code Comment -->
+                <p class="font-code text-success-green text-sm mb-2">// Crafted with passion by</p>
+
+                <!-- Developer Name -->
+                <div class="mb-6">
+                    <h2 class="text-4xl md:text-5xl font-black mb-2">
+                        <span class="gradient-text">Mahmoud Nazmy</span>
+                    </h2>
+                    <p class="text-xl text-white/80 font-code mb-2">
+                        &lt; Full-Stack Developer & Python Educator /&gt;
+                    </p>
+                    <p class="text-white/60">
+                        Turning complex code into simple lessons since 2019
+                    </p>
+                </div>
+
+                <!-- Tech Stack Showcase -->
+                <div class="max-w-4xl mx-auto mb-8">
+                    <p class="text-sm text-white/50 font-code mb-4">const techStack = [</p>
+                    <div class="flex flex-wrap justify-center gap-4 mb-4">
+                        <!-- Python -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-primary">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                                    alt="Python">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    Python</p>
+                            </div>
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Expert Level
+                            </div>
+                        </div>
+
+                        <!-- Django -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-success-green">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
+                                    alt="Django">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    Django</p>
+                            </div>
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-success-green text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                5+ Years
+                            </div>
+                        </div>
+
+                        <!-- React -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-python-blue">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                    alt="React">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    React</p>
+                            </div>
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-python-blue text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Advanced
+                            </div>
+                        </div>
+
+                        <!-- FastAPI -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-success-green">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
+                                    alt="FastAPI">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    FastAPI</p>
+                            </div>
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-success-green text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Expert
+                            </div>
+                        </div>
+
+                        <!-- PostgreSQL -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-python-blue">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                                    alt="PostgreSQL">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    PostgreSQL</p>
+                            </div>
+                        </div>
+
+                        <!-- Docker -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-python-blue">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                                    alt="Docker">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">
+                                    Docker</p>
+                            </div>
+                        </div>
+
+                        <!-- Git -->
+                        <div class="group relative">
+                            <div
+                                class="glass-card px-6 py-4 rounded-xl hover:scale-110 transition-transform cursor-pointer border border-transparent hover:border-accent-pink">
+                                <img class="h-12 w-12 mx-auto mb-2 group-hover:scale-110 transition-transform"
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                                    alt="Git">
+                                <p class="text-xs text-white/60 font-code group-hover:text-white transition-colors">Git
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-white/50 font-code">];</p>
+                </div>
+
+                <!-- Developer Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+                    <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform">
+                        <p class="text-3xl font-bold text-primary mb-1">10K+</p>
+                        <p class="text-sm text-white/60">Students Taught</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform">
+                        <p class="text-3xl font-bold text-python-yellow mb-1">50+</p>
+                        <p class="text-sm text-white/60">Projects Built</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform">
+                        <p class="text-3xl font-bold text-success-green mb-1">5+</p>
+                        <p class="text-sm text-white/60">Years Experience</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform">
+                        <p class="text-3xl font-bold text-accent-pink mb-1">4.9★</p>
+                        <p class="text-sm text-white/60">Average Rating</p>
+                    </div>
+                </div>
+
+                <!-- Social Links - Premium Design -->
+                <div class="mb-8">
+                    <p class="text-white/60 text-sm mb-4">Connect & Collaborate</p>
+                    <div class="flex justify-center gap-4">
+                        <!-- GitHub -->
+                        <a href="https://github.com/mahmoudnazmy" target="_blank" class="group relative">
+                            <div
+                                class="glass-card w-14 h-14 rounded-xl flex items-center justify-center hover:scale-110 transition-all hover:border-white/40">
+                                <svg class="w-6 h-6 text-white/60 group-hover:text-white transition-colors"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                @mahmoudnazmy
+                            </div>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/mahmoud-n/" target="_blank" class="group relative">
+                            <div
+                                class="glass-card w-14 h-14 rounded-xl flex items-center justify-center hover:scale-110 transition-all hover:border-blue-500/40">
+                                <svg class="w-6 h-6 text-white/60 group-hover:text-blue-500 transition-colors"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Professional Network
+                            </div>
+                        </a>
+
+                        <!-- Portfolio Website -->
+                        <a href="https://mahmoudnazmy.github.io/Portfolio/" target="_blank" class="group relative">
+                            <div
+                                class="glass-card w-14 h-14 rounded-xl flex items-center justify-center hover:scale-110 transition-all hover:border-primary/40">
+                                <span
+                                    class="material-symbols-outlined text-white/60 group-hover:text-primary transition-colors">language</span>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Portfolio Website
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="glass-card max-w-2xl mx-auto p-8 rounded-2xl border border-primary/30">
+                    <h3 class="text-2xl font-bold text-white mb-3">Need a Custom Solution?</h3>
+                    <p class="text-white/70 mb-6">
+                        I'm available for freelance projects, consulting, and custom course development.
+                        Let's build something amazing together!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://www.linkedin.com/in/mahmoud-n/" target="_blank"
+                            class="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-gradient-to-r from-primary to-python-blue text-white font-bold hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined">mail</span>
+                            <span>Hire Me</span>
+                        </a>
+                        <a href="https://mahmoudnazmy.github.io/Portfolio/" target="_blank"
+                            class="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 transition-colors">
+                            <span class="material-symbols-outlined">work</span>
+                            <span>View Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Code Signature -->
+                <div class="mt-8 font-code text-center">
+                    <p class="text-white/40 text-sm">
+                        <span class="text-success-green">const</span> <span class="text-python-yellow">developer</span>
+                        = {
+                    </p>
+                    <p class="text-white/40 text-sm ml-4">
+                        name: <span class="text-accent-pink">"Mahmoud Nazmy"</span>,
+                    </p>
+                    <p class="text-white/40 text-sm ml-4">
+                        passion: <span class="text-accent-pink">"Teaching & Coding"</span>,
+                    </p>
+                    <p class="text-white/40 text-sm ml-4">
+                        mission: <span class="text-accent-pink">"Empowering Developers"</span>
+                    </p>
+                    <p class="text-white/40 text-sm">};</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-white/10 mb-12"></div>
+
+            <!-- Course Links Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Product -->
+                <div>
+                    <h3 class="font-code text-success-green text-sm font-bold mb-4">// Course</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#curriculum"
+                                class="text-white/60 hover:text-white text-sm transition-colors">Curriculum</a></li>
+                        <li><a href="#highlights"
+                                class="text-white/60 hover:text-white text-sm transition-colors">Highlights</a></li>
+                        <li><a href="#instructor"
+                                class="text-white/60 hover:text-white text-sm transition-colors">Instructor</a></li>
+                        <li><a href="#testimonials"
+                                class="text-white/60 hover:text-white text-sm transition-colors">Reviews</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Pricing</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h3 class="font-code text-python-yellow text-sm font-bold mb-4">// Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#"
+                                class="text-white/60 hover:text-white text-sm transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Code
+                                Examples</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Cheat
+                                Sheets</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Project
+                                Files</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Bonus
+                                Content</a></li>
+                    </ul>
+                </div>
+
+                <!-- Community -->
+                <div>
+                    <h3 class="font-code text-accent-pink text-sm font-bold mb-4">// Community</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Discord
+                                Server</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Forum</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Study
+                                Groups</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Live Q&A</a>
+                        </li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Student
+                                Projects</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h3 class="font-code text-python-blue text-sm font-bold mb-4">// Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Help Center</a>
+                        </li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Contact</a>
+                        </li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">FAQs</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Refund
+                                Policy</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-white text-sm transition-colors">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Decorative Code Elements -->
+            <div class="flex justify-center gap-8 mb-8 text-2xl opacity-10 font-mono">
+                <span class="text-success-green animate-pulse">{</span>
+                <span class="text-python-yellow animate-pulse animation-delay-1000">&lt;/&gt;</span>
+                <span class="text-accent-pink animate-pulse animation-delay-2000">[ ]</span>
+                <span class="text-python-blue animate-pulse animation-delay-3000">( )</span>
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
+                <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                    <span>© 2025 Python Zero to Hero</span>
+                    <span class="hidden md:inline text-white/30">|</span>
+                    <span class="font-code">Crafted with <span class="text-red-500">❤️</span> & <span
+                            class="text-python-yellow">☕</span> by Mahmoud Nazmy</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+
+            <!-- Easter Egg -->
+            <div class="text-center mt-8">
+                <p class="font-code text-xs text-white/20">
+                    <span class="text-success-green">print</span>(<span class="text-accent-pink">"Keep coding, keep
+                        growing! 🚀"</span>)
+                    <span class="animate-pulse">_</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white shadow-lg opacity-0 pointer-events-none transition-opacity hover:bg-primary/80 z-50">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu-btn');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.add('translate-x-full');
+            }
+        });
+
+        // Close menu on link click
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+
+        // Scroll Progress Bar
+        const progressBar = document.getElementById('scroll-progress');
+
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Counter Animation for stats
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('[data-aos="flip-left"]');
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = counter.querySelector('.text-4xl, .text-2xl');
+                    if (!target || target.dataset.animated) return;
+
+                    const text = target.innerText;
+                    const match = text.match(/(\d+)/);
+                    if (!match) return;
+
+                    const finalNumber = parseInt(match[1]);
+                    const duration = 2000;
+                    const increment = finalNumber / (duration / 16);
+                    let current = 0;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= finalNumber) {
+                            current = finalNumber;
+                            clearInterval(timer);
+                            target.dataset.animated = 'true';
+                        }
+                        target.innerText = text.replace(/\d+/, Math.floor(current).toLocaleString());
+                    }, 16);
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(updateCount, 300);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        };
+
+        animateCounters();
+    </script>
+</body>
+
+</html>
