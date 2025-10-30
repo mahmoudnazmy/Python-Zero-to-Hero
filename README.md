@@ -12,14 +12,13 @@
 
 **12-Week Intensive Course | 60 Hours Total | 15+ Real Projects | Industry Certificate**
 
-[View Demo](#) 
 
 </div>
 
 ---
 
 ## 🌐 **Live Preview**
-🔗 **[Visit Python Zero to Hero Course](https://yourusername.github.io/python-zero-to-hero/)**  
+🔗 **[Visit Python Zero to Hero Course](https://mahmoudnazmy.github.io/Python-Zero-to-Hero/)**  
 
 ---
 
